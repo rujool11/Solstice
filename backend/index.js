@@ -1,6 +1,5 @@
 import express from "express";
 import { chats } from "./data/data.js";
-import { dotenv } from "dotenv";
 
 const app = express();
 
@@ -24,8 +23,7 @@ app.get("/api/chat/:id", (req, res) => {
     res.send(oneChat);
 });
 
-const PORT = process.env.PORT;
-// to hide actual port number, put it in .env and use dotenv package
+const PORT = 5000;
 
 app.listen(5000, () => {
     console.log(`Server started on port ${PORT}`);
