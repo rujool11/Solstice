@@ -1,0 +1,1 @@
+package.json -> added custom script "start" which runs node backend/index.js by npm start
