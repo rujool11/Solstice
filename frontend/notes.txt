@@ -1,3 +1,5 @@
+use vite to create react app, npm create vite@latest
+
 to connect frontend ( port 5173 ) to backend ( port 5000 )
 add proxy : http://127.0.0.1:5000 to package.json of frontend
 
