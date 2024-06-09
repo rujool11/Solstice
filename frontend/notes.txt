@@ -1,0 +1,15 @@
+to connect frontend ( port 5173 ) to backend ( port 5000 )
+add proxy : http://127.0.0.1:5000 to package.json of frontend
+
+for client side routing, use react-router-dom
+wrap main app in BrowserRouter
+
+
+IMP-->
+in App.jsx, routing for / and /chats, -> if exact not used, then homePage and chatPage
+both will be rendered, since /chats includes / route, thus we use exact in route for /
+
+install axios to make api calls to backend (in App.jsx)
+need to use async to use await, thus make it an async function
+
+IMP: continue from 12:00 in #5 of playlist
