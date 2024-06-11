@@ -1,109 +1,108 @@
 export const chats = [
-    {
-      isGroupChat: false,
-      users: [
-        {
-          name: "Alice Smith",
-          email: "alice@example.com",
-        },
-        {
-          name: "Bob Johnson",
-          email: "bob@example.com",
-        },
-      ],
-      _id: "123a456e78b90123c456d789",
-      chatName: "Alice Smith",
-    },
-    {
-      isGroupChat: false,
-      users: [
-        {
-          name: "Charlie Brown",
-          email: "charlie@example.com",
-        },
-        {
-          name: "Bob Johnson",
-          email: "bob@example.com",
-        },
-      ],
-      _id: "123a456e78b90123c456d790",
-      chatName: "Charlie Brown",
-    },
-    {
-      isGroupChat: false,
-      users: [
-        {
-          name: "David Green",
-          email: "david@example.com",
-        },
-        {
-          name: "Bob Johnson",
-          email: "bob@example.com",
-        },
-      ],
-      _id: "123a456e78b90123c456d791",
-      chatName: "David Green",
-    },
-    {
-      isGroupChat: true,
-      users: [
-        {
-          name: "Alice Smith",
-          email: "alice@example.com",
-        },
-        {
-          name: "Bob Johnson",
-          email: "bob@example.com",
-        },
-        {
-          name: "Charlie Brown",
-          email: "charlie@example.com",
-        },
-      ],
-      _id: "123a456e78b90123c456d792",
-      chatName: "Study Group",
-      groupAdmin: {
-        name: "Charlie Brown",
-        email: "charlie@example.com",
+  {
+    isGroupChat: false,
+    users: [
+      {
+        name: "John Doe",
+        email: "john@example.com",
       },
-    },
-    {
-      isGroupChat: false,
-      users: [
-        {
-          name: "Eve White",
-          email: "eve@example.com",
-        },
-        {
-          name: "Bob Johnson",
-          email: "bob@example.com",
-        },
-      ],
-      _id: "123a456e78b90123c456d793",
-      chatName: "Eve White",
-    },
-    {
-      isGroupChat: true,
-      users: [
-        {
-          name: "Alice Smith",
-          email: "alice@example.com",
-        },
-        {
-          name: "Bob Johnson",
-          email: "bob@example.com",
-        },
-        {
-          name: "Charlie Brown",
-          email: "charlie@example.com",
-        },
-      ],
-      _id: "123a456e78b90123c456d794",
-      chatName: "Project Team",
-      groupAdmin: {
-        name: "Charlie Brown",
-        email: "charlie@example.com",
+      {
+        name: "Rujool",
+        email: "Rujool@example.com",
       },
+    ],
+    _id: "617a077e18c25468bc7c4dd4",
+    chatName: "John Doe",
+  },
+  {
+    isGroupChat: false,
+    users: [
+      {
+        name: "Guest User",
+        email: "guest@example.com",
+      },
+      {
+        name: "Rujool",
+        email: "rujool@example.com",
+      },
+    ],
+    _id: "617a077e18c25468b27c4dd4",
+    chatName: "Guest User",
+  },
+  {
+    isGroupChat: false,
+    users: [
+      {
+        name: "Anthony",
+        email: "anthony@example.com",
+      },
+      {
+        name: "Rujool",
+        email: "rujool@example.com",
+      },
+    ],
+    _id: "617a077e18c2d468bc7c4dd4",
+    chatName: "Anthony",
+  },
+  {
+    isGroupChat: true,
+    users: [
+      {
+        name: "John Doe",
+        email: "jon@example.com",
+      },
+      {
+        name: "Rujool",
+        email: "rujool@example.com",
+      },
+      {
+        name: "Guest User",
+        email: "guest@example.com",
+      },
+    ],
+    _id: "617a518c4081150716472c78",
+    chatName: "Friends",
+    groupAdmin: {
+      name: "Guest User",
+      email: "guest@example.com",
     },
-  ];
-  
+  },
+  {
+    isGroupChat: false,
+    users: [
+      {
+        name: "Jane Doe",
+        email: "jane@example.com",
+      },
+      {
+        name: "Rujool",
+        email: "rujool@example.com",
+      },
+    ],
+    _id: "617a077e18c25468bc7cfdd4",
+    chatName: "Jane Doe",
+  },
+  {
+    isGroupChat: true,
+    users: [
+      {
+        name: "John Doe",
+        email: "jon@example.com",
+      },
+      {
+        name: "Rujool",
+        email: "rujool@example.com",
+      },
+      {
+        name: "Guest User",
+        email: "guest@example.com",
+      },
+    ],
+    _id: "617a518c4081150016472c78",
+    chatName: "Malazan",
+    groupAdmin: {
+      name: "Guest User",
+      email: "guest@example.com",
+    },
+  },
+];

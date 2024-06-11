@@ -1,7 +1,20 @@
 use vite to create react app, npm create vite@latest
 
+IMP: this is only for create-react-app, not vite 
 to connect frontend ( port 5173 ) to backend ( port 5000 )
 add proxy : http://127.0.0.1:5000 to package.json of frontend
+
+for vite, => 
+in viteconfig, add 
+ server: {
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:5000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, 'api')
+      }
+    }
+ }
 
 for client side routing, use react-router-dom
 wrap main app in BrowserRouter
@@ -14,4 +27,18 @@ both will be rendered, since /chats includes / route, thus we use exact in route
 install axios to make api calls to backend (in App.jsx)
 need to use async to use await, thus make it an async function
 
-IMP: continue from 12:00 in #5 of playlist
+useEffect hook, which runs when the component has been rendered for the first time
+used to perform side effects in function components
+takes args useEffect(xFunction, dependencyArray)
+xFunction is the function that will run and perform the side effect
+dependencyArray is array of dependencies that determine when the xFunction should be re-executed
+xFunction only re-executed when one of the values in the array changes between renders
+empty dependencyArray => only runs after initial render
+no dependencyArray => runs after every render
+
+
+useState hook, returns a state variable and setState function to update the state
+takes initial state as input, which can also be a function that calculates state, as well
+as a variable/object
+
+
