@@ -1,0 +1,4 @@
+Schema definition--> 
+
+mongoose.Schema.types.ObjectId is an id to the reference provided. 
+Here, the reference was provided to "User" and "Message"
