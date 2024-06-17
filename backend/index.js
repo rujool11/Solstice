@@ -1,6 +1,11 @@
 import express from "express";
 import { chats } from "./data/data.js";
+import { connectDB } from "./config/db.js";
+import  dotenv  from "dotenv"; 
 
+dotenv.config();
+const PORT = process.env.PORT;
+connectDB();
 const app = express();
 
 // Route handler for HTTP GET for root of app /
@@ -23,7 +28,6 @@ app.get("/api/chats/:id", (req, res) => {
     res.send(oneChat);
 });
 
-const PORT = 5000;
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
