@@ -41,4 +41,4 @@ useState hook, returns a state variable and setState function to update the stat
 takes initial state as input, which can also be a function that calculates state, as well
 as a variable/object
 
-
+chakraUI -> Box works the same as div
