@@ -42,3 +42,6 @@ takes initial state as input, which can also be a function that calculates state
 as a variable/object
 
 chakraUI -> Box works the same as div
+
+postDetails -> changed to e.target.values[0], as it will then accept only the first 
+file in cause of multiple files posted
