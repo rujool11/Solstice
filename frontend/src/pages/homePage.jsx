@@ -21,7 +21,7 @@ const homePage = () => {
         padding={3}
         bg={"white"}
         width="100%"
-        m="40px 0 15px 0"
+        m="40px 0 10px 0"
         borderRadius="0.5rem"
         borderWidth="1px"
       >
@@ -33,6 +33,7 @@ const homePage = () => {
       <Box
         bg={"white"}
         padding={3}
+        paddingBottom={0}
         borderRadius="0.5rem"
         width="100%"
         borderWidth="1px"

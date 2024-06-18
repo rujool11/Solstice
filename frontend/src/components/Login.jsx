@@ -14,9 +14,7 @@ const Login = () => {
   const [password, setPassword] = useState();
   const [show, setShow] = useState(false);
 
-  const handleClick = () => {
-    setShow(!show);
-  };
+  const handleClick = () => setShow(!show)
 
   const submitHandler = () => {}
 
