@@ -2,16 +2,20 @@ import express from "express";
 import { chats } from "./data/data.js";
 import { connectDB } from "./config/db.js";
 import  dotenv  from "dotenv"; 
+import  userRoutes  from "./routes/userRoutes.js";
 
 dotenv.config();
 const PORT = process.env.PORT;
 connectDB();
 const app = express();
+app.use(express.json()); // since we accept data from frontend
 
 // Route handler for HTTP GET for root of app /
 app.get("/", (req, res) => {
     res.send("API is running");
 });
+
+app.use("/api/user", userRoutes);
 
 
 // /api/chats get, send all dummy chats

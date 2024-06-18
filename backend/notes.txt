@@ -1,2 +1,10 @@
 package.json -> added custom script "start" which runs node backend/index.js by npm start
 changed node to nodemon
+
+x.findOne(y) -> searched mongoDB database for x type data having field y
+
+400 -> bad request, 201 -> successful, 401 -> unauthorized
+
+when we create a new user, we want to send a JWT token to the user, for which 
+we use the generateToken function and JWT module (jsonwebtoken)
+JWT helps in user authorization in the backend

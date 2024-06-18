@@ -2,3 +2,9 @@ Schema definition-->
 
 mongoose.Schema.types.ObjectId is an id to the reference provided. 
 Here, the reference was provided to "User" and "Message"
+
+userSchema.pre("save", x), x is middleware, and this specifies run x before saving
+genSalt -> higher the number , stronger the salt
+then, hash password with the salt (encrypt)
+
+for userModel.pre, methods, etc, do not use arrow functions

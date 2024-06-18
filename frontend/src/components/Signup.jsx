@@ -31,7 +31,7 @@ const Signup = () => {
   return (
     <VStack spacing="5px" pb={0} > 
       
-      <FormControl id="first-name" isRequired>
+      <FormControl id="name" isRequired>
         <FormLabel>Name</FormLabel>
         <Input
           placeholder="Enter Your Name"
