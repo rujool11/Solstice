@@ -16,7 +16,7 @@ userModel.methods.matchPassword = async function (enteredPassword) {
 }
 
 userModel.pre("save", async function (next) {
-    if (!this.isModified) {next();} // if current password is not modified, move on to next, i.e code after this is not executed
+    if (!this.isModified) {next();} // if current userModel is not modified, move on to next, i.e code after this is not executed
 
     const salt = await bcrypt.genSalt(10); 
     this.password = await bcrypt.hash(this.password, salt); // encrypt the password

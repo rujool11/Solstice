@@ -24,7 +24,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
         pic
     }); // create user 
 
-    if (user) { // add user to database
+    if (user) { 
         res.status(201).json({
             _id: user._id,
             name: user.name, 
