@@ -46,4 +46,11 @@ chakraUI -> Box works the same as div
 postDetails -> changed to e.target.values[0], as it will then accept only the first 
 file in cause of multiple files posted
 
-cloud name, account details etc from cloudinary
+do picture functionality later, for now we have just taken the default picture
+
+useHistory() ->
+(read more about this later) -->
+used for conditional routing
+hook in react router dom, gives you access to the history instance
+can be used to navigate to different routes in application, and back and forth in history stack
+in Signup and login, used to redirect to /chats after successful registration

@@ -116,13 +116,13 @@ const Signup = () => {
        position: "bottom",
       });
 
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      localStorage.setItem("userInfo", JSON.stringify(data)); // save data in localstorage under key useInfo to avoid repeated login
       setLoading(false);
       //history.pushState("/chats"); (open chats page when successful registration)
     } catch (error) {
       toast ({
         title: "Error Occured",
-        description: error.response.data.message,
+        description: error.response.data.message || error.message,
         status: "error",
         isClosable: true,
         position: "bottom",
