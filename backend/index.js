@@ -3,6 +3,7 @@ import { chats } from "./data/data.js";
 import { connectDB } from "./config/db.js";
 import  dotenv  from "dotenv"; 
 import  userRoutes  from "./routes/userRoutes.js";
+import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -16,6 +17,9 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/user", userRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
 
 
 // /api/chats get, send all dummy chats

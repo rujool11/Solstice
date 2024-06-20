@@ -8,3 +8,17 @@ genSalt -> higher the number , stronger the salt
 then, hash password with the salt (encrypt)
 
 for userModel.pre, methods, etc, do not use arrow functions
+
+
+Error handling middleware ->
+(multiple ways of error handling, this is a "standard" way) -> 
+
+notFound -> will handle situations where requested Url does not exist
+creates error objects and res status code is set to 400
+then, it passes the error object to the next middleware using next(error)
+
+errorHandler ->  handles error during request processing
+if status code is 200, sets to 500 else whatever the statusCode is
+Sends error message back, and error stack if the env is not production
+
+
