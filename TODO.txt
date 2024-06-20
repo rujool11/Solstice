@@ -1,0 +1,3 @@
+long term : add profile picture functionality
+
+short term : add login functionality

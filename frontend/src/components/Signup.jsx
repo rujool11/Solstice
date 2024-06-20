@@ -73,13 +73,24 @@ const Signup = () => {
     setLoading(true);
     if (!name || !email || !password || !confirmpassword) {
       toast({
-        title: 'Please fill all required fields',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-        position: bottom,
-      })
-
+       title : "Please fill all required fields",
+       status: "warning",
+       duration: 5000,
+       isClosable: true,
+       position: "bottom",
+      });
+      setLoading(false);
+      return;
+    } 
+    
+    if (password!=confirmpassword) {
+      toast({
+       title : "Passwords do not match",
+       status: "warning",
+       duration: 5000,
+       isClosable: true,
+       position: "bottom",
+      });
       setLoading(false);
       return;
     }
@@ -90,36 +101,37 @@ const Signup = () => {
           "Content-type":"application/json",
         },
       };
-      
+
       const { data } = await axios.post(
         "/api/user",
-        {name, email, password, pic},
-        config
-      );
+        {name, email, password}, // add pic later
+        config,
+      )
 
-        toast({
-        title: 'Registration success',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-        position: bottom,
-      })
+      toast({
+       title : "Successful",
+       status: "success",
+       duration: 5000,
+       isClosable: true,
+       position: "bottom",
+      });
 
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
-      history.push('/chats');
-      } catch (error){
-        toast({
-          title: 'Error occured',
-          description: error.response.data.message,
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
-          position: bottom,
-        })
-        setLoading(false);
-      }
+      //history.pushState("/chats"); (open chats page when successful registration)
+    } catch (error) {
+      toast ({
+        title: "Error Occured",
+        description: error.response.data.message,
+        status: "error",
+        isClosable: true,
+        position: "bottom",
+        duration: 5000,
+      });
+      setLoading(false);
+    }
   };
+
 
   return (
     <VStack spacing="5px" pb={0} > 
@@ -179,7 +191,7 @@ const Signup = () => {
           type="file"
           p={1.5}
           accept="image/*"
-          onChange={(e) => postDetails(e.target.files[0])}
+          //onChange={(e) => postDetails(e.target.files[0])}
         />
       </FormControl>
 
