@@ -46,7 +46,6 @@ chakraUI -> Box works the same as div
 postDetails -> changed to e.target.values[0], as it will then accept only the first 
 file in cause of multiple files posted
 
-do picture functionality later, for now we have just taken the default picture
 
 useHistory() ->
 (read more about this later) -->
@@ -54,3 +53,33 @@ used for conditional routing
 hook in react router dom, gives you access to the history instance
 can be used to navigate to different routes in application, and back and forth in history stack
 in Signup and login, used to redirect to /chats after successful registration
+
+
+postDetails ->  image upload processing, set startLoading true to show loading on 
+submit button. if no image selected and this is called, will show toast with warning 
+message. 
+Check pic type (jpeg, png) , and create new FormData to upload to cloudinary
+to data, append file pic, and cloudinary upload preset and cloud name
+then, use fetch API upload image to cloudinary, by specifying url, and config with 
+method (post) and data. 
+.then(res => res.json()) parses the API response as json, so that it can be used further
+.then(data => {...}) processes the parsed json data, and uses setPicture to set 
+the picture state to url of cloudinary image, (data.url.toString()), setLoading to false
+have a catch error block in case wrong format image uploaded. 
+(common fetch API practises)
+https://www.youtube.com/watch?v=cuEtnrL9-H0&t=3s
+
+
+submitHandler ->  set loading as true, check if everything required is filled, 
+if not, show toast with error/warning
+check if passwords match, show error toast if not
+try submitting, catch error and show toast
+set config headers, Content-Type as 'application/json', which denotes that body 
+contains json data. send data using axios.post, to out api endpoint /api/user, with 
+data and config.
+Object Literal: {name, email, password, pic: picture || undefined} -> shorthand for 
+{name: namme, email:email, etc..}. pic : picture || undefined sets pic to picture if 
+defined, else will set to undefined, (default will be used in cause of undefined)
+Successful toast is shown in case of success
+data is stored in localStorage under key userInfo, loading set to false to stop 
+button loading, and user redirected to /chats page

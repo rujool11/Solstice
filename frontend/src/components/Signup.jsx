@@ -25,49 +25,56 @@ const Signup = () => {
 
   const handleClick = () => setShow(!show);
 
-  // const postDetails = (pic) => {
-  //   setPicLoading(true);
+  const postDetails = (pic) => {
+    setLoading(true);
 
-  //   if (pic === undefined) {
-  //     toast({
-  //       title: 'Please select image',
-  //       status: 'warning',
-  //       duration: 5000,
-  //       isClosable: true,
-  //       position: 'bottom',
-  //     })
-  //     return;
-  //   }
+    if (pic === undefined) {
+      toast({
+        title: 'Please select image',
+        status: 'warning',
+        duration: 5000,
+        isClosable: true,
+        position: 'bottom',
+      })
+      return;
+    }
 
-  //   if (pic.type === "image/jpeg" || pic.type === "image/png") {
-  //     const data = new FormData();
-  //     data.append("file", pic);
-  //     data.append("upload_preset", "WeChat");
-  //     data.append("cloud_name", "ddlr4zdn7");
-  //     fetch("cloudinary://798533934777692:pkwfnnoc35ooBIGFul37E-lRiZY@ddlr4zdn7",{
-  //       method: "post",
-  //       body: data,
-  //     }).then((res) = res.json())
-  //       .then((data) => {
-  //         setPicture(data.url.toString());
-  //         setPicLoadin(false);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //         setPicLoading(false);
-  //       });
-  //   } else {
-  //     toast({
-  //       title: 'Please jpeg/png select image',
-  //       status: 'warning',
-  //       duration: 5000,
-  //       isClosable: true,
-  //       position: 'bottom',
-  //     });
-  //     setPicLoading(false);
-  //     return;
-  //   }
-  // }
+    if (pic.type === "image/jpeg" || pic.type === "image/png") {
+      const data = new FormData();
+      data.append("file", pic);
+      data.append("upload_preset", "WeChat");
+      data.append("cloud_name", "ddlr4zdn7");
+
+      fetch("https://api.cloudinary.com/v1_1/ddlr4zdn7/upload", {
+
+        method: "post", 
+        body: data,
+
+      }).then((res) => res.json())
+      .then((data) => {
+
+        setPicture(data.url.toString()),
+        console.log("successful upload");
+        setLoading(false);
+
+      }). catch((error) => {
+
+        console.log(error),
+        setLoading(false);
+      })
+
+    } else {
+      toast({
+        title: 'Please select jpeg/png image',
+        status: 'warning',
+        duration: 5000,
+        isClosable: true,
+        position: 'bottom',
+      });
+      setLoading(false);
+      return;
+    }
+  }
 
   const submitHandler = async () => {
     setLoading(true);
@@ -104,7 +111,7 @@ const Signup = () => {
 
       const { data } = await axios.post(
         "/api/user",
-        {name, email, password}, // add pic later
+        {name, email, password, pic: picture || undefined},
         config,
       )
 
@@ -191,7 +198,7 @@ const Signup = () => {
           type="file"
           p={1.5}
           accept="image/*"
-          //onChange={(e) => postDetails(e.target.files[0])}
+          onChange={(e) => postDetails(e.target.files[0])}
         />
       </FormControl>
 
