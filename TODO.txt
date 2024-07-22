@@ -1,2 +1,1 @@
 immediate : continue from search user and create chat APIs
-long term : add profile picture functionality

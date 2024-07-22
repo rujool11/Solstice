@@ -3,8 +3,39 @@ changed node to nodemon
 
 x.findOne(y) -> searched mongoDB database for x type data having field y
 
-400 -> bad request, 201 -> successful, 401 -> unauthorized
+200 -> successful request that updates or retrieves resource, usually successful GET 
+201 -> successful request that creates resource, usually successful POST
+400 -> bad request (error in request)
+401 -> unauthorized
+404 -> not found
 
 when we create a new user, we want to send a JWT token to the user, for which 
 we use the generateToken function and JWT module (jsonwebtoken)
 JWT helps in user authorization in the backend
+
+x.route(y).post(p) and x.route(y).get(g) <=> x.route(y).post(p).get(g)
+
+allUsers controller -> to get all all users that match search query
+if search parameter present in query, constructs keyword object using $or, which 
+matches name and email fields whose value matches search term, $options i makes 
+case insensetive
+if search parameter not present, empty object
+const users = (..) queries User collection using keyword object
+.find({ _id: {$ne: req.user._id}}) is used to excluse user who is currently logged in 
+$ne is not equals, needs user to be authorized
+response users is sent to client
+basically, searches User collection for users that match search query by name and email
+
+
+middlewares have request, response and next to move on to the next operation
+protect middleware -> 
+if authorization header exists and starts with Bearer => JWT present 
+extract the token from header using split
+const decoded = jwt.verify(token, process.env.JWT_SECRET) verifies token using secret key
+if successful, returns user info, and decoded._id is used to find user by _id in database
+select("-password") removes password from user object, and this is then attached to the req
+as given in the next line ->
+req.user = await User.findById(decoded._id).select("-password") 
+next() is called to pass control to the route handler 
+password removed for security
+self explanatory error handling
