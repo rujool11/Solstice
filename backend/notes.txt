@@ -39,3 +39,5 @@ req.user = await User.findById(decoded._id).select("-password")
 next() is called to pass control to the route handler 
 password removed for security
 self explanatory error handling
+
+protect is basically used to ensure that user is logged in

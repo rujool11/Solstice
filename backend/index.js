@@ -3,6 +3,7 @@ import { chats } from "./data/data.js";
 import { connectDB } from "./config/db.js";
 import  dotenv  from "dotenv"; 
 import  userRoutes  from "./routes/userRoutes.js";
+import chatRoutes from "./routes/chatRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 dotenv.config();
@@ -17,24 +18,10 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/user", userRoutes);
+app.user("/api/chat", chatRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
-
-
-// /api/chats get, send all dummy chats
-app.get("/api/chats", (req, res) => {
-    res.send(chats);
-});
-
-// when id is specified, log id and search chats object for chat whose id matches requested id, 
-// and send it in resonse
-// .find(x) , where x is a function which determines if find returns true based on function evaluation
-app.get("/api/chats/:id", (req, res) => {
-    console.log(req.params.id);
-    const oneChat = chats.find(c => c._id === req.params.id);
-    res.send(oneChat);
-});
 
 
 app.listen(PORT, () => {
