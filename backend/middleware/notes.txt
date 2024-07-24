@@ -1,0 +1,14 @@
+middlewares have request, response and next to move on to the next operation
+protect middleware -> 
+if authorization header exists and starts with Bearer => JWT present 
+extract the token from header using split
+const decoded = jwt.verify(token, process.env.JWT_SECRET) verifies token using secret key
+if successful, returns user info, and decoded._id is used to find user by _id in database
+select("-password") removes password from user object, and this is then attached to the req
+as given in the next line ->
+req.user = await User.findById(decoded._id).select("-password") 
+next() is called to pass control to the route handler 
+password removed for security
+self explanatory error handling
+
+protect is basically used to ensure that user is logged in

@@ -1,0 +1,10 @@
+allUsers controller -> to get all all users that match search query
+if search parameter present in query, constructs keyword object using $or, which 
+matches name and email fields whose value matches search term, $options i makes 
+case insensetive
+if search parameter not present, empty object
+const users = (..) queries User collection using keyword object
+.find({ _id: {$ne: req.user._id}}) is used to excluse user who is currently logged in 
+$ne is not equals, needs user to be authorized
+response users is sent to client
+basically, searches User collection for users that match search query by name and email
