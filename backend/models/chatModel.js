@@ -8,18 +8,18 @@ const chatModel = mongoose.Schema(
 
     users: [
       {
-        type: mongoose.Schema.types.ObjectId, // id to that user
+        type: mongoose.Schema.Types.ObjectId, // id to that user
         ref: "User", // reference to user model
       },
     ],
 
     latestMessage: {
-      type: mongoose.Schema.types.ObjectId, // id to that message
+      type: mongoose.Schema.Types.ObjectId, // id to that message
       ref: "Message",
     },
 
     groupAdmin: {
-      type: mongoose.Schema.types.ObjectId, // id to that user
+      type: mongoose.Schema.Types.ObjectId, // id to that user
       ref: "User", // reference to user model
     },
   },
