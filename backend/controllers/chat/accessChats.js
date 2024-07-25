@@ -1,6 +1,6 @@
 import expressAsyncHandler from "express-async-handler";
-import Chat from "../models/chatModel.js";
-import User from "../models/userModel.js";
+import Chat from "../../models/chatModel.js"
+import User from "../../models/userModel.js";
 
 const accessChats = expressAsyncHandler(async (req, res) =>{
     // get userId of user with whom logged in user wants to chat
@@ -57,4 +57,5 @@ const accessChats = expressAsyncHandler(async (req, res) =>{
     }
 });
 
-export { accessChats };
+
+export default accessChats;

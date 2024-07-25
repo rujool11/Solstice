@@ -1,6 +1,6 @@
 import express from "express";
 import protect from "../middleware/authMiddleware.js";
-import { accessChats } from "../controllers/chatController.js";
+import accessChats from "../controllers/chat/accessChats.js";
 const router = express.Router();
 
 // all routes are after /api/chat
