@@ -9,7 +9,7 @@ const protect = expressAsyncHandler( async (req, res, next) => {
             // token of form: Bearer actual_token, so split to get the actual_token
             token = req.headers.authorization.split(' ')[1];
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            req.user = await User.findById(decoded.id).select("-password");
+            req.user = await User.findById(decoded.id).select("-password"); // here we set user field to request
             next();
         }
         catch (error) {
