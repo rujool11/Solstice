@@ -4,6 +4,8 @@ import accessChats from "../controllers/chat/accessChats.js";
 import createGroupChat from "../controllers/chat/createGroupChat.js";
 import fetchChats from "../controllers/chat/fetchChats.js";
 import renameGroup from "../controllers/chat/renameGroup.js";
+import addToGroup from "../controllers/chat/addToGroup.js";
+import removeFromGroup from "../controllers/chat/removeFromGroup.js";
 const router = express.Router();
 
 // all routes are after /api/chat
@@ -13,7 +15,7 @@ router.route('/').post(protect, accessChats);
 router.route('/').get(protect, fetchChats);
 router.route('/group').post(protect, createGroupChat);
 router.route('/rename').put(protect, renameGroup);
-// router.route('/groupremove').put(protect, removeFromGroup);
-// router.route('/groupadd').put(protect, addToGroup);
+router.route('/groupremove').put(protect, removeFromGroup);
+router.route('/groupadd').put(protect, addToGroup);
 
 export default router;
