@@ -59,7 +59,7 @@ const Login = () => {
       });
 
       setLoading(false);
-      // history.pushState("/chats"); (open chats page when successful login)
+      history.pushState("/chats"); // open chats page when successful login
     } catch (error) {
       toast ({
         title: "Error Occured",
