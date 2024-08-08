@@ -125,7 +125,7 @@ const Signup = () => {
 
       localStorage.setItem("userInfo", JSON.stringify(data)); // save data in localstorage under key useInfo to avoid repeated login
       setLoading(false);
-      //history.pushState("/chats"); (open chats page when successful registration)
+      history.pushState("/chats");// open chats after successful registration
     } catch (error) {
       toast ({
         title: "Error Occured",
@@ -203,7 +203,7 @@ const Signup = () => {
       </FormControl>
 
       <Button
-        colorScheme="green"
+        colorScheme="purple"
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}

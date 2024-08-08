@@ -83,3 +83,15 @@ defined, else will set to undefined, (default will be used in cause of undefined
 Successful toast is shown in case of success
 data is stored in localStorage under key userInfo, loading set to false to stop 
 button loading, and user redirected to /chats page
+
+
+updated homePage structure ->
+
+Box of height and width 100vh and 100vw each contains a Grid of 2 columns (2, 1fr)
+GridItems for branding part at left and login/signup forms at right, griditems have display
+flex and are and aligned and justified at center to correctly center all elements inside it 
+branding has a Stack of Text, with the name WeChat followed by Real Time Chat App in correct
+size and boldness, forms side has a box which contains tabs, which displays Login and Signup 
+components, depending on the tab clicked
+
+
