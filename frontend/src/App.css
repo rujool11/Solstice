@@ -3,7 +3,7 @@
 .App {
   min-height: 100vh;
   display: flex;
-  background-image: url(./assets/chris-barbalis-mNOyQxq90gA-unsplash.jpg);
+  background-image: url(./assets/background.jpg);
   background-size: cover;
   background-position: center;
   color: black;
