@@ -39,7 +39,7 @@ const HomePage = () => {
         >
           <Stack spacing={3} textAlign="center">
             <Text fontSize="5rem" fontWeight="bold" color="white">
-              WeChat
+              Solstice
             </Text>
             <Text fontSize="3rem" fontWeight="medium" color="white">
               Real Time Chat App
