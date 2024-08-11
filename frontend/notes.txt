@@ -116,3 +116,5 @@ provided by it.
 useNavigate instead of useHistory in react-router-dom v6 onwards, but this is v5.3.4
 
 renamed to Solstice
+
+{user && <X/>} means that if user is truthy, X will be rendered, and not rendered if user falsy
