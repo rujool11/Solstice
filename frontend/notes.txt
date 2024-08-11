@@ -94,4 +94,23 @@ branding has a Stack of Text, with the name WeChat followed by Real Time Chat Ap
 size and boldness, forms side has a box which contains tabs, which displays Login and Signup 
 components, depending on the tab clicked
 
+context, and the useContext hook -> 
+essentially, an easy way to pass state variables to compoments without passing them manually
+useContext hook allows to consume context in functional compoments
 
+/context/ChatProvider.js ->
+
+ChatProvider wraps around the entire App to give compoments access to user and useState
+basically, any compoment inside the app can use and update these state variables (user and   
+setUser provided as of now). 
+useEffect runs when history object changes ( to account for history changed by router), and 
+fetches the user from localStorage, if user does not exist (not logged in), redirected to 
+home page (and similarly redirected to chats page from home page if logged in by analogous
+useEffect call).  
+ChatState is a helper function that allows other compoments to easily access context value. 
+{ children } prop represents whatever JSX compoments you wrap inside <ChatProvider>, so in this
+case the whole App. When we use { children } in the return statement, we are essentially 
+wrapping ChatContext.Provider around the { children }, so they can get access to the context 
+provided by it. 
+
+useNavigate instead of useHistory in react-router-dom v6 onwards, but this is v5.3.4

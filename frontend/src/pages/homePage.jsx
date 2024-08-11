@@ -13,8 +13,21 @@ import {
 } from "@chakra-ui/react";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
+import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
 
 const HomePage = () => {
+
+  const history = useHistory();
+
+  useEffect(() => {
+
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+    if (user) history.push('/chats'); // if logged in, push to chats
+
+  }, [history]); // if user is logged in, push them to the chats page
+
+
   return (
     <Box width="100vw" height="100vh">
       <Grid templateColumns="repeat(2, 1fr)" height="100%" width="100%">

@@ -58,6 +58,7 @@ const Login = () => {
        position: "bottom",
       });
 
+      localStorage.setItem("userInfo", JSON.stringify(data)); // save data in localstorage under key useInfo to avoid repeated login
       setLoading(false);
       history.pushState("/chats"); // open chats page when successful login
     } catch (error) {
