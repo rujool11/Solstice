@@ -20,7 +20,7 @@ const ProfileModal = ({ user, children }) => {
   // wrap children in modal (refer to chakraUI docs)
   return (
     <>
-      {children ? <span onClick={onOpen}>{children}</span> : <View />}
+      {children ? <div onClick={onOpen}>{children}</div> : <View />}
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -41,6 +41,8 @@ const ProfileModal = ({ user, children }) => {
             alignItems="center"
           >
             <Image
+              border="3px solid"
+              borderColor="purple"
               borderRadius="full"
               boxSize="150px"
               src={user.pic}

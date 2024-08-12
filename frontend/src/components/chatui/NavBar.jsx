@@ -18,11 +18,9 @@ import ArrowDown from "../icons/ArrowDown.jsx";
 import { ChatState } from "../../context/ChatProvider.jsx";
 import ProfileModal from "./ProfileModal.jsx";
 import { useHistory } from "react-router-dom";
+import LeftDrawer from "./LeftDrawer.jsx";
 
 const NavBar = () => {
-  const [search, setSearch] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
   const { user, setUser } = ChatState();
 
@@ -31,7 +29,7 @@ const NavBar = () => {
   const logoutHandler = () => {
     localStorage.removeItem("userInfo");
     history.push("/");
-  }
+  };
 
   return (
     <>
@@ -45,25 +43,27 @@ const NavBar = () => {
         borderWidth="3px"
       >
         <Tooltip label="search for users" hasArrow placement="bottom">
-          <Button variant="ghost">
-            <SearchIcon size={18} />
-            <Text
-              fontFamily="Kanit"
-              display={{ base: "none", md: "flex" }}
-              padding="2"
-            >
-              Search User
-            </Text>
-            {/* Text will not be displayed at the base breakpoint (smaller than md screens)
+          <LeftDrawer>
+            <Button variant="ghost">
+              <SearchIcon size={18} />
+              <Text
+                fontFamily="Kanit"
+                display={{ base: "none", md: "flex" }}
+                padding="2"
+              >
+                Search User
+              </Text>
+              {/* Text will not be displayed at the base breakpoint (smaller than md screens)
             After md breakpoint, i.e medium sized screens, display will be flex  */}
-          </Button>
+            </Button>
+          </LeftDrawer>
         </Tooltip>
 
         <Text fontSize="2xl" fontFamily="Kanit">
           Solstice
         </Text>
 
-        <div display="flex"> 
+        <div display="flex">
           <Menu>
             <MenuButton p={1}>
               <BellIcon size={18} />
@@ -94,6 +94,7 @@ const NavBar = () => {
           </Menu>
         </div>
       </Box>
+      <LeftDrawer />
     </>
   );
 };
