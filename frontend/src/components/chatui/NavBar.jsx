@@ -35,7 +35,7 @@ const NavBar = () => {
       >
         <Tooltip label="search for users" hasArrow placement="bottom">
           <Button variant="ghost">
-            <SearchIcon size={20} />
+            <SearchIcon size={18} />
             <Text
               fontFamily="Kanit"
               display={{ base: "none", md: "flex" }}
@@ -48,7 +48,7 @@ const NavBar = () => {
           </Button>
         </Tooltip>
 
-        <Text fontSize="3xl" fontFamily="Kanit">
+        <Text fontSize="2xl" fontFamily="Kanit">
           Solstice
         </Text>
 
@@ -60,7 +60,7 @@ const NavBar = () => {
           </Menu>
 
           <Menu>
-            <MenuButton as={Button} padding = {1} rightIcon={<ArrowDown size={20}/>}>
+            <MenuButton as={Button} padding = {1} rightIcon={<ArrowDown size={18}/>}>
               <Avatar
               size="sm"
               name={user.name} 

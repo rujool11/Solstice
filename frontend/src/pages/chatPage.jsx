@@ -1,9 +1,9 @@
 import React from "react";
 import { ChatState } from "../context/ChatProvider.jsx";
-import NavBar from "../components/misc/NavBar.jsx";
+import NavBar from "../components/chatui/NavBar.jsx";
 import { Box } from "@chakra-ui/react";
-import UserChats from "../components/misc/UserChats.jsx";
-import ChatSpace from "../components/misc/ChatSpace.jsx";
+import UserChats from "../components/chatui/UserChats.jsx";
+import ChatSpace from "../components/chatui/ChatSpace.jsx";
 
 const chatPage = () => {
   const { user } = ChatState();
