@@ -14,7 +14,7 @@ const ChatProvider = ({ children }) => {
 
         if (!userInfo) { // if user not logged in 
             history.push('/'); // push to login/signup page (home)
-        }
+        } // ensures all pages ensure authentication at all times 
 
     }, [history]); // run when history changes 
 

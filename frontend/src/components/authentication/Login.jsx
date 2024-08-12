@@ -11,8 +11,10 @@ import {
   FormLabel,
   useToast,
 } from "@chakra-ui/react";
+import { ChatState } from "../../context/ChatProvider.jsx";
 
 const Login = () => {
+  const { setUser } = ChatState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [show, setShow] = useState(false);
@@ -58,9 +60,10 @@ const Login = () => {
        position: "bottom",
       });
 
+      setUser(data); // set user to new logged in user
       localStorage.setItem("userInfo", JSON.stringify(data)); // save data in localstorage under key useInfo to avoid repeated login
       setLoading(false);
-      history.pushState("/chats"); // open chats page when successful login
+      history.push("/chats"); // open chats page when successful login
     } catch (error) {
       toast ({
         title: "Error Occured",

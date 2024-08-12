@@ -8,19 +8,30 @@ import {
   Menu,
   MenuButton,
   MenuList,
+  MenuItem,
+  MenuDivider,
   Avatar,
 } from "@chakra-ui/react";
 import SearchIcon from "../icons/SearchIcon.jsx";
 import BellIcon from "../icons/BellIcon.jsx";
 import ArrowDown from "../icons/ArrowDown.jsx";
 import { ChatState } from "../../context/ChatProvider.jsx";
+import ProfileModal from "./ProfileModal.jsx";
+import { useHistory } from "react-router-dom";
 
 const NavBar = () => {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
-  const { user } = ChatState();
+  const { user, setUser } = ChatState();
+
+  const history = useHistory();
+
+  const logoutHandler = () => {
+    localStorage.removeItem("userInfo");
+    history.push("/");
+  }
 
   return (
     <>
@@ -52,21 +63,34 @@ const NavBar = () => {
           Solstice
         </Text>
 
-        <div d="flex" justifyContent="center" alignItems="center"> 
-            <Menu>
-              <MenuButton p={1}> 
+        <div display="flex"> 
+          <Menu>
+            <MenuButton p={1}>
               <BellIcon size={18} />
             </MenuButton>
           </Menu>
 
           <Menu>
-            <MenuButton as={Button} padding = {1} rightIcon={<ArrowDown size={18}/>}>
+            <MenuButton
+              as={Button}
+              padding={1}
+              rightIcon={<ArrowDown size={18} />}
+            >
               <Avatar
-              size="sm"
-              name={user.name} 
-              cursor="pointer"
-              src={user.pic} />
+                size="sm"
+                name={user.name}
+                cursor="pointer"
+                src={user.pic}
+              />
             </MenuButton>
+
+            <MenuList>
+              <ProfileModal user={user}>
+                <MenuItem>My Profile</MenuItem>
+              </ProfileModal>
+              <MenuDivider />
+              <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+            </MenuList>
           </Menu>
         </div>
       </Box>

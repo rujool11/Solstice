@@ -118,3 +118,15 @@ useNavigate instead of useHistory in react-router-dom v6 onwards, but this is v5
 renamed to Solstice, changed git url, check 
 
 {user && <X/>} means that if user is truthy, X will be rendered, and not rendered if user falsy
+
+
+ProfileModal ->
+useDisclosure is a chakraUI hook to handle open/close/toggles
+isOpen -> whether is open, onOpen/ onClose -> functions to open and close the modal
+receives user and children , children are the compoments this is wrapped around, as 
+we see in the NavBar, it is wrapped around MenuItem my profile. 
+If children exist, it will display the children, else it will display a view icon, when used 
+singularly, like <ProfileModal/>
+
+wrappper ordering for this particular project->
+ChakraProvider at the top, then ChatProvider, then BrowserRouter at the bottom
