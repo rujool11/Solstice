@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import {
   Box,
-  Tooltip,
   Button,
   Text,
   Menu,
@@ -42,22 +41,20 @@ const NavBar = () => {
         p="3px 6px 3px 6px"
         borderWidth="3px"
       >
-        <Tooltip label="search for users" hasArrow placement="bottom">
-          <LeftDrawer>
-            <Button variant="ghost">
-              <SearchIcon size={18} />
-              <Text
-                fontFamily="Kanit"
-                display={{ base: "none", md: "flex" }}
-                padding="2"
-              >
-                Search User
-              </Text>
-              {/* Text will not be displayed at the base breakpoint (smaller than md screens)
+        <LeftDrawer>
+          <Button variant="ghost">
+            <SearchIcon size={18} />
+            <Text
+              fontFamily="Kanit"
+              display={{ base: "none", md: "flex" }}
+              padding="2"
+            >
+              Search User
+            </Text>
+            {/* Text will not be displayed at the base breakpoint (smaller than md screens)
             After md breakpoint, i.e medium sized screens, display will be flex  */}
-            </Button>
-          </LeftDrawer>
-        </Tooltip>
+          </Button>
+        </LeftDrawer>
 
         <Text fontSize="2xl" fontFamily="Kanit">
           Solstice
@@ -94,7 +91,6 @@ const NavBar = () => {
           </Menu>
         </div>
       </Box>
-      <LeftDrawer />
     </>
   );
 };
