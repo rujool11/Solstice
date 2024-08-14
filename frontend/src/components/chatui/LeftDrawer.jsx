@@ -28,7 +28,7 @@ const LeftDrawer = ({ children }) => {
   const { user, setSelectedChat } = ChatState();
 
   const accessChats = async (userId) => {
-    try{
+    try {
       setLoadingChat(true);
 
       const config = {
@@ -36,12 +36,11 @@ const LeftDrawer = ({ children }) => {
           "Content-type": "application/json", // since posting data
           Authorization: `Bearer ${user.token}`,
         },
-      }
+      };
 
       const { data } = await axios.post("/api/chat", { userId }, config);
       setSelectedChat(data);
       setLoadingChat(false);
-
     } catch (error) {
       console.log(error);
       toast({
@@ -50,9 +49,9 @@ const LeftDrawer = ({ children }) => {
         duration: 5000,
         isClosable: true,
         position: "bottom-left",
-      })
+      });
     }
-  }
+  };
 
   const handleSearch = async () => {
     if (!search) {
@@ -77,7 +76,6 @@ const LeftDrawer = ({ children }) => {
       const { data } = await axios.get(`/api/user?search=${search}`, config);
       setLoading(false);
       setSearchResult(data);
-
     } catch (error) {
       console.log(error);
       toast({
@@ -113,14 +111,18 @@ const LeftDrawer = ({ children }) => {
                 <SearchIcon size={18} />
               </Button>
             </Box>
-            {loading ? <ChatLoading/> : (
-              searchResult?.map((user) => { 
-                return <UserListItem 
-                  key = {user._id}
-                  user = {user}
-                  handleFunction = {() => accessChats(user._id)}
-                />
-              }) 
+            {loading ? (
+              <ChatLoading />
+            ) : (
+              searchResult?.map((user) => {
+                return (
+                  <UserListItem
+                    key={user._id}
+                    user={user}
+                    handleFunction={() => accessChats(user._id)}
+                  />
+                );
+              })
             )}
           </DrawerBody>
         </DrawerContent>
