@@ -23,11 +23,35 @@ const LeftDrawer = ({ children }) => {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingChat, setLoadingChat] = useState(false);
   const toast = useToast();
-  const { user, setUser } = ChatState();
+  const { user, setSelectedChat } = ChatState();
 
   const accessChats = async (userId) => {
+    try{
+      setLoadingChat(true);
 
+      const config = {
+        headers: {
+          "Content-type": "application/json", // since posting data
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+
+      const { data } = await axios.post("/api/chat", { userId }, config);
+      setSelectedChat(data);
+      setLoadingChat(false);
+
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "error fetching chat",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      })
+    }
   }
 
   const handleSearch = async () => {
