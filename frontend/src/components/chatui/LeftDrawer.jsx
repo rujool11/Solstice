@@ -25,7 +25,7 @@ const LeftDrawer = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
   const toast = useToast();
-  const { user, setSelectedChat } = ChatState();
+  const { user, setSelectedChat, chats, setChats } = ChatState();
 
   const accessChats = async (userId) => {
     try {
@@ -41,6 +41,8 @@ const LeftDrawer = ({ children }) => {
       const { data } = await axios.post("/api/chat", { userId }, config);
       setSelectedChat(data);
       setLoadingChat(false);
+      onClose();
+
     } catch (error) {
       console.log(error);
       toast({
@@ -76,6 +78,7 @@ const LeftDrawer = ({ children }) => {
       const { data } = await axios.get(`/api/user?search=${search}`, config);
       setLoading(false);
       setSearchResult(data);
+
     } catch (error) {
       console.log(error);
       toast({
