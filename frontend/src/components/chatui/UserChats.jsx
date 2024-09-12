@@ -18,6 +18,7 @@ const UserChats = () => {
       }
 
       const { data } = await axios.get("/api/chat", config);
+
       setChats(data); 
     } catch (error) {
       console.log(error);

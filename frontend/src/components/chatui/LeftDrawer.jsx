@@ -17,6 +17,7 @@ import ChatLoading from "./ChatLoading.jsx";
 import axios from "axios";
 import { ChatState } from "../../context/ChatProvider";
 import UserListItem from "../useravatar/UserListItem.jsx";
+import { Spinner } from "@chakra-ui/react";
 
 const LeftDrawer = ({ children }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -39,6 +40,10 @@ const LeftDrawer = ({ children }) => {
       };
 
       const { data } = await axios.post("/api/chat", { userId }, config);
+      
+      // if chat already in chats, dont append, else append data to chats
+      if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
+
       setSelectedChat(data);
       setLoadingChat(false);
       onClose();
@@ -47,6 +52,7 @@ const LeftDrawer = ({ children }) => {
       console.log(error);
       toast({
         title: "error fetching chat",
+        description: `${error.message}`,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -127,6 +133,7 @@ const LeftDrawer = ({ children }) => {
                 );
               })
             )}
+            {loadingChat && <Spinner d="flex" ml="auto" />}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
