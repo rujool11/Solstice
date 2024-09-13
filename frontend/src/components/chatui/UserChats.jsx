@@ -3,6 +3,8 @@ import { useState } from "react";
 import { ChatState } from "../../context/ChatProvider";
 import { Box, useToast } from "@chakra-ui/react";
 import axios from "axios";
+import { Button } from "@chakra-ui/react";
+import IconAdd from "../icons/IconAdd";
 
 const UserChats = () => {
   const toast = useToast();
@@ -57,12 +59,19 @@ const UserChats = () => {
       fontSize="30px"
       fontFamily={"Kanit"}
       display="flex"
-      flexDir="column"
+      flexDir="row"
       width="100%"
       alignItems="center"
-      justifyContent="center"
+      justifyContent="space-between"
     >
       My Chats
+    <Button
+      display="flex"
+      fontSize="15px"
+      rightIcon={<IconAdd/>}
+    >
+      New Group Chat
+    </Button>
     </Box>
   </Box>
 };
