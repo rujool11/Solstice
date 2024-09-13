@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { ChatState } from "../../context/ChatProvider";
 import { useToast } from "@chakra-ui/react";
@@ -18,10 +18,10 @@ const UserChats = () => {
       }
 
       const { data } = await axios.get("/api/chat", config);
-
+      console.log(data);
       setChats(data); 
     } catch (error) {
-      console.log(error);
+
       toast({
         duration: 5000,
         isClosable: true,
@@ -31,6 +31,12 @@ const UserChats = () => {
       })
     }
   }
+
+
+  useEffect(() => {
+    setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+    fetchChats();
+  }, []); // fetch chats on initial render
 };
 
 export default UserChats;
