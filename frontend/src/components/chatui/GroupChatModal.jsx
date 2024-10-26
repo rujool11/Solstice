@@ -65,7 +65,23 @@ function GroupChatModal({ children }) {
   };
 
   const handleSubmit = () => {};
-  const handleGroup = () => {};
+
+  const handleGroup = (userToAdd) => {
+      //  if user already exists, just show toast and return
+      if (selectedUsers.includes(userToAdd)) {
+        toast({
+          title: "User already added",
+          status: "warning",
+          isClosable: true,
+          duration: 5000,
+          position: "top",
+        })
+
+        return;
+      }
+
+      setSelectedUsers([...selectedUsers, userToAdd]);
+  };
 
   return (
     <>
