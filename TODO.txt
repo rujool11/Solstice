@@ -1,1 +1,1 @@
-continue from rendering all the chats
+continue from group chat ui

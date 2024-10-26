@@ -42,7 +42,7 @@ const UserChats = () => {
     fetchChats();
   }, []); // fetch chats on initial render
 
-  // if small screen (base breakpoint) display only chatSpace selected Chat exists, 
+  // if small screen (base breakpoint) display only chatSpace if selected Chat exists, 
   // else display userChats, on larger screens (from md breakpoint), display both (flex)
   return <Box
   
@@ -95,6 +95,7 @@ const UserChats = () => {
             px={3}
             py={2}
             borderRadius="5px"
+            margin="1px"
             key={chat._id}
             >
               <Text>
