@@ -11,18 +11,13 @@ import {
   useToast,
   FormControl,
   Input,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Divider,
-  Box
+  Box,
 } from "@chakra-ui/react";
 import UserItemBadge from "../useravatar/UserItemBadge";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { ChatState } from "../../context/ChatProvider";
-import { set } from "mongoose";
 import UserListItem from "../useravatar/UserListItem";
 
 function GroupChatModal({ children }) {
@@ -57,7 +52,7 @@ function GroupChatModal({ children }) {
     } catch (error) {
       toast({
         title: "Error Occured!",
-        description: "Failed to load chat",
+        description: "Failed to search user",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -66,28 +61,77 @@ function GroupChatModal({ children }) {
     }
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    if (!groupChatName || selectedUsers.length < 2) {
+      toast({
+        status: "error",
+        title: "Incomplete form",
+        description: "please fill all the fields (at least 3 members in a group)",
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      const { data } = await axios.post("api/chat/group",{
+        name: groupChatName,
+        users: JSON.stringify(selectedUsers.map((u) => u._id)),
+      },
+      config);
+
+      setChats([data, ...chats]);
+      onClose(); // close the modal
+      toast({
+        title: "New Group Chat Created!",
+        status: "success",
+        isClosable: "true",
+        duration: 5000,
+      });
+      setLoading(false);
+
+    } catch (error) {
+      toast({
+        title: "Failed to create group",
+        description: error.response,data,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
+  };
 
   const handleDelete = (userToDelete) => {
     // filter out user who has same id, and update selectedUsers array
-    setSelectedUsers(selectedUsers.filter((sel) => sel._id !== userToDelete._id));
+    setSelectedUsers(
+      selectedUsers.filter((sel) => sel._id !== userToDelete._id)
+    );
   };
 
   const handleGroup = (userToAdd) => {
-      //  if user already exists, just show toast and return
-      if (selectedUsers.includes(userToAdd)) {
-        toast({
-          title: "User already added",
-          status: "warning",
-          isClosable: true,
-          duration: 5000,
-          position: "top",
-        })
+    //  if user already exists, just show toast and return
+    if (selectedUsers.includes(userToAdd)) {
+      toast({
+        title: "User already added",
+        status: "warning",
+        isClosable: true,
+        duration: 5000,
+        position: "top",
+      });
 
-        return;
-      }
+      return;
+    }
 
-      setSelectedUsers([...selectedUsers, userToAdd]);
+    setSelectedUsers([...selectedUsers, userToAdd]);
   };
 
   return (
@@ -127,7 +171,6 @@ function GroupChatModal({ children }) {
                   key={u._id}
                   user={u}
                   handleFunction={() => handleDelete(u)}
-
                 />
               ))}
             </Box>
