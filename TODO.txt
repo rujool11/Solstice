@@ -1,1 +1,1 @@
-continue from group chat ui
+continue from chat box ui
