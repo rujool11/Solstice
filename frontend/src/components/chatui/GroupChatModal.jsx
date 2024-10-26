@@ -15,8 +15,9 @@ import {
   FormErrorMessage,
   FormHelperText,
   Divider,
+  Box
 } from "@chakra-ui/react";
-
+import UserItemBadge from "../useravatar/UserItemBadge";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
@@ -52,6 +53,7 @@ function GroupChatModal({ children }) {
       console.log(data);
       setLoading(false);
       setSearchResult(data);
+
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -65,6 +67,11 @@ function GroupChatModal({ children }) {
   };
 
   const handleSubmit = () => {};
+
+  const handleDelete = (userToDelete) => {
+    // filter out user who has same id, and update selectedUsers array
+    setSelectedUsers(selectedUsers.filter((sel) => sel._id !== userToDelete._id));
+  };
 
   const handleGroup = (userToAdd) => {
       //  if user already exists, just show toast and return
@@ -114,6 +121,16 @@ function GroupChatModal({ children }) {
               />
             </FormControl>
             {/* selected users */}
+            <Box display="flex" flexWrap="wrap" width="100%">
+              {selectedUsers.map((u) => (
+                <UserItemBadge
+                  key={u._id}
+                  user={u}
+                  handleFunction={() => handleDelete(u)}
+
+                />
+              ))}
+            </Box>
 
             {/* render searched users, only display 4 at a time */}
             {loading ? (
