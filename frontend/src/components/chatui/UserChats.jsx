@@ -9,7 +9,7 @@ import ChatLoading from "./ChatLoading.jsx";
 import { getSender } from "../../config/ChatLogics.jsx";
 import GroupChatModal from "./GroupChatModal.jsx";
 
-const UserChats = () => {
+const UserChats = ({ fetchAgain }) => {
   const toast = useToast();
   const [loggedUser, setLoggedUser] = useState();
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
@@ -39,7 +39,7 @@ const UserChats = () => {
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
-  }, []); // fetch chats on initial render
+  }, [fetchAgain]); // fetch chats whenever fetchAgain changes
 
   // if small screen (base breakpoint) display only chatSpace if selected Chat exists,
   // else display userChats, on larger screens (from md breakpoint), display both (flex)
