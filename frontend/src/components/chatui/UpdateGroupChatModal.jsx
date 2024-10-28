@@ -15,12 +15,14 @@ import {
   Input,
   position,
   StepDescription,
+  Spinner,
 } from "@chakra-ui/react";
 import View from "../icons/View";
 import { ChatState } from "../../context/ChatProvider";
 import { useState } from "react";
 import { useDisclosure } from "@chakra-ui/react";
 import UserItemBadge from "../useravatar/UserItemBadge.jsx";
+import UserListItem from "../useravatar/UserListItem.jsx";
 import axios from "axios";
 
 const UpdateGroupChatModal = ({fetchAgain, setFetchAgain}) => {
@@ -36,6 +38,38 @@ const UpdateGroupChatModal = ({fetchAgain, setFetchAgain}) => {
   const toast = useToast();
 
   const handleRemove = ({ userToRemove }) => {};
+
+  const handleAddUser = ({userToAdd}) => {};
+
+  const handleSearch = async (query) => {
+    setSearch(query);
+    if (!query) return;
+
+    try {
+      setLoading(true);
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      console.log(data);
+      setLoading(false);
+      setSearchResult(data);
+
+    } catch (error) {
+      toast({
+        title: "Error Occured!",
+        description: "Failed to search user",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
+    }
+  };
 
   const handleRename = async () => {
     if (!groupChatName) return;
@@ -125,11 +159,20 @@ const UpdateGroupChatModal = ({fetchAgain, setFetchAgain}) => {
               <Input
                 placeholder="Add User to group"
                 mb={3}
-                onChange={(e) => {
-                  setGroupChatName(e.target.value);
-                }}
+                onChange={(e) => handleSearch(e.target.value)}
               />
             </FormControl>
+            {loading ? (
+              <Spinner size="lg"/>
+            ) : (
+              searchResult?.slice(0,4).map((u) => (
+                <UserListItem
+                  key={u._id}
+                  user={u}
+                  handleFunction={handleAddUser(u)}
+                />
+              ))
+            )}
           </ModalBody>
 
           <ModalFooter>
