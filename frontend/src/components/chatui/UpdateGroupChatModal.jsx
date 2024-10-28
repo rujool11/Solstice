@@ -39,7 +39,62 @@ const UpdateGroupChatModal = ({fetchAgain, setFetchAgain}) => {
 
   const handleRemove = ({ userToRemove }) => {};
 
-  const handleAddUser = ({userToAdd}) => {};
+  const handleAddUser = async (userToAdd) => {
+    if (selectedChat.users.find((u) => u._id === userToAdd._id)) {
+      toast({
+        duration: 5000,
+        status: "warning",
+        isClosable: true,
+        position: "bottom",
+        title: "User Already exists in group!" 
+      });
+      return;
+    }
+
+    if (selectedChat.groupAdmin._id !== user._id) {
+      toast({
+        duration: 5000,
+        isClosable: true,
+        status: "error",
+        position: "bottom",
+        title: "Only admins can add user to the group",
+      })
+      return;
+    }
+
+    try{
+      setLoading(true);
+  
+      const config = {
+        headers: { 
+          Authorization: `Bearer: ${user.token}`,
+        },
+      };
+      
+      const { data } = await axios.put("/api/chat/groupadd",{
+          chatId: selectedChat._id,
+          userId: userToAdd._id,
+      },
+        config
+      ); 
+
+      setSelectedChat(data);
+      setFetchAgain(!fetchAgain); // to fetch chats again after updation
+      setLoading(false);
+
+    } catch(error) {
+      toast({
+        duration: 5000,
+        isClosable: true,
+        status: "error",
+        position: "bottom",
+        title: "Error in adding user",
+        description: `${error}`,
+      })
+    
+    }
+
+  };
 
   const handleSearch = async (query) => {
     setSearch(query);
@@ -169,7 +224,7 @@ const UpdateGroupChatModal = ({fetchAgain, setFetchAgain}) => {
                 <UserListItem
                   key={u._id}
                   user={u}
-                  handleFunction={handleAddUser(u)}
+                  handleFunction={() => handleAddUser(u)}
                 />
               ))
             )}
