@@ -7,6 +7,7 @@ import { IconButton } from "@chakra-ui/react";
 import { getSenderFull, getSender } from "../../config/ChatLogics";
 import ProfileModal from "./ProfileModal";
 import View from "../icons/View";
+import UpdateGroupChatModal from "./UpdateGroupChatModal";
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const { user, selectedChat, setSelectedChat } = ChatState();
@@ -43,11 +44,25 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             ) : (
                 <>
                     {selectedChat.chatName.toUpperCase()}
-                    {/* {update gc icon}     */}
+                    {<UpdateGroupChatModal fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>}
                 </>
 
             )}
           </Text>
+
+          <Box
+            display="flex"
+            flexDirection="column"
+            py={3}
+            px={5}
+            width="100%"
+            height="100%"
+            borderRadius="3px"
+            overflowY="hidden"
+            background="#E8E8E8"            
+          >
+
+          </Box>
         </>
       ) : (
         <Box
