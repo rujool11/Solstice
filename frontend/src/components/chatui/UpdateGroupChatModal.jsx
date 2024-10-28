@@ -37,7 +37,50 @@ const UpdateGroupChatModal = ({fetchAgain, setFetchAgain}) => {
 
   const toast = useToast();
 
-  const handleRemove = ({ userToRemove }) => {};
+  const handleRemove = async ( userToRemove ) => {
+    if (selectedChat.groupAdmin._id !== user._id && userToRemove._id !== user._id) {
+      toast({
+        duration: 5000,
+        isClosable: true,
+        status: "error",
+        position: "bottom",
+        title: "only admins can remove someone",
+      })
+      return;
+    }
+
+    try{
+      
+      setLoading(true);
+
+      const config = {
+        headers: {
+          Authorization: `Bearer: ${user.token}`,
+        },
+      };
+
+      const { data } = await axios.put("/api/chat/groupremove", {
+        userId: userToRemove._id,
+        chatId: selectedChat._id,
+      }, config); 
+
+      userToRemove._id === user._id ? setSelectedChat() : setSelectedChat(data);
+      // set chat empty if user removed themself, they shouldnt be able to see chat anymore
+      setFetchAgain(!fetchAgain);
+      setLoading(false);
+
+    } catch (error) {
+      toast({
+        duration: 5000,
+        position: "bottom",
+        isClosable: "true",
+        status: "error",
+        title: "Could not remove from group"
+      })
+      setLoading(false);
+      return;
+    }
+  };
 
   const handleAddUser = async (userToAdd) => {
     if (selectedChat.users.find((u) => u._id === userToAdd._id)) {
@@ -231,7 +274,7 @@ const UpdateGroupChatModal = ({fetchAgain, setFetchAgain}) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="red" mr={3} onClick={handleRemove(user)}>
+            <Button colorScheme="red" mr={3} onClick={() => handleRemove(user)}>
               Leave Group
             </Button>
           </ModalFooter>
