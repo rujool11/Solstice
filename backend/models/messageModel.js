@@ -1,6 +1,6 @@
 import mongoose, { mongo } from "mongoose";
 
-messageModel = mongoose.Schema(
+const messageModel = mongoose.Schema(
   {
     sender: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 
