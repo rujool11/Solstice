@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { Box } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { ChatState } from "../../context/ChatProvider";
@@ -12,22 +13,54 @@ import View from "../icons/View";
 import UpdateGroupChatModal from "./UpdateGroupChatModal";
 import { useState } from "react";
 import { Input } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
-  
-  const [ messages, setMessages ] = useState([]);
-  const [ loading, setLoading ] = useState(false);
-  const [ newMessage, setNewMessage ] = useState();
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [newMessage, setNewMessage] = useState("");
+
+  const toast = useToast();
 
   const { user, selectedChat, setSelectedChat } = ChatState();
-  
-  const sendMessage = () => {
 
-  }
+  const sendMessage = async (event) => {
+    if (event.key === "Enter" && newMessage) {
+      try {
 
-  const typingHandler = () => { 
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
 
-  }
+        setNewMessage("");
+
+        const { data } = await axios.post("/api/message", {
+          content: newMessage,
+          chatId: selectedChat._id, 
+        }, config);
+
+        setMessages([messages, data]);
+
+      } catch (error) {
+        toast({
+          title: "Error occured",
+          type: "error",
+          duration: 5000,
+          isClosable: true,
+          description: error.message,
+          position: "bottom",
+        })
+      }
+    } 
+  };
+
+  const typingHandler = (event) => {
+    setNewMessage(event.target.value);
+    // typing indicator logic
+  };
 
   return (
     <>
@@ -50,20 +83,24 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             />
 
             {!selectedChat.isGroupChat ? (
-                <>
-                    {getSender(user, selectedChat.users)}
-                    {
-                        <ProfileModal user={getSenderFull(user, selectedChat.users)}> 
-                            <View/>
-                        </ProfileModal>
-                    }
-                </>
+              <>
+                {getSender(user, selectedChat.users)}
+                {
+                  <ProfileModal user={getSenderFull(user, selectedChat.users)}>
+                    <View />
+                  </ProfileModal>
+                }
+              </>
             ) : (
-                <>
-                    {selectedChat.chatName.toUpperCase()}
-                    {<UpdateGroupChatModal fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>}
-                </>
-
+              <>
+                {selectedChat.chatName.toUpperCase()}
+                {
+                  <UpdateGroupChatModal
+                    fetchAgain={fetchAgain}
+                    setFetchAgain={setFetchAgain}
+                  />
+                }
+              </>
             )}
           </Text>
 
@@ -77,9 +114,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             height="100%"
             borderRadius="3px"
             overflowY="hidden"
-            background="#E8E8E8"            
+            background="#E8E8E8"
           >
-           {loading ? (
+            {loading ? (
               <Spinner
                 size="xl"
                 height={20}
@@ -87,11 +124,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 margin="auto"
                 alignSelf="center"
               />
-           ) : (
+            ) : (
               <div>{/*Messages*/}</div>
-           )} 
+            )}
 
-           <FormControl onKeyDown={sendMessage} isRequired marginTop={3}>
+            <FormControl onKeyDown={sendMessage} isRequired marginTop={3}>
               <Input
                 variant="filled"
                 background="#E0E0E0"
@@ -100,7 +137,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 value={newMessage}
                 fontFamily="Kanit"
               />
-           </FormControl>
+            </FormControl>
           </Box>
         </>
       ) : (

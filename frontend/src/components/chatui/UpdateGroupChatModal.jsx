@@ -55,7 +55,7 @@ const UpdateGroupChatModal = ({fetchAgain, setFetchAgain}) => {
 
       const config = {
         headers: {
-          Authorization: `Bearer: ${user.token}`,
+          Authorization: `Bearer ${user.token}`,
         },
       };
 
