@@ -95,7 +95,7 @@ const UserChats = ({ fetchAgain }) => {
                 margin="1px"
                 key={chat._id}
               >
-                <Text>
+                <Text fontFamily="Kanit">
                   {!chat.isGroupChat
                     ? getSender(loggedUser, chat.users)
                     : chat.chatName}
