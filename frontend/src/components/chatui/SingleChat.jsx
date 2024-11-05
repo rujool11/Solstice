@@ -12,6 +12,7 @@ import { FormControl } from "@chakra-ui/react";
 import View from "../icons/View";
 import UpdateGroupChatModal from "./UpdateGroupChatModal";
 import { useState } from "react";
+import { useEffect } from "react";
 import { Input } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 
@@ -23,6 +24,35 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const toast = useToast();
 
   const { user, selectedChat, setSelectedChat } = ChatState();
+
+  const fetchMessages = async () => {
+    if (!selectedChat) return;
+
+    try {
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      setLoading(true);
+
+      const { data } = await axios.get(`/api/message/${selectedChat._id}`, config);
+      setMessages(data);
+      setLoading(false);
+
+    } catch (error) {
+      toast({
+        duration: 5000,
+        type: "error",
+        position: "bottom",
+        isClosable: true,
+        title: "Could not fetch messages",
+        description: error.message,
+      })
+    }
+  }
 
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
@@ -61,6 +91,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     setNewMessage(event.target.value);
     // typing indicator logic
   };
+
+
+  useEffect(() => {
+    fetchMessages();
+  }, [selectedChat]);
 
   return (
     <>
