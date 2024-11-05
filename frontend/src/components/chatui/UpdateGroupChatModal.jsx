@@ -25,7 +25,7 @@ import UserItemBadge from "../useravatar/UserItemBadge.jsx";
 import UserListItem from "../useravatar/UserListItem.jsx";
 import axios from "axios";
 
-const UpdateGroupChatModal = ({fetchAgain, setFetchAgain}) => {
+const UpdateGroupChatModal = ({fetchAgain, setFetchAgain, fetchMessages}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { selectedChat, setSelectedChat, user } = ChatState();
@@ -67,6 +67,7 @@ const UpdateGroupChatModal = ({fetchAgain, setFetchAgain}) => {
       userToRemove._id === user._id ? setSelectedChat() : setSelectedChat(data);
       // set chat empty if user removed themself, they shouldnt be able to see chat anymore
       setFetchAgain(!fetchAgain);
+      fetchMessages();
       setLoading(false);
 
     } catch (error) {

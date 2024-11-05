@@ -15,6 +15,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Input } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
+import ScrollableChat from "./ScrollableChat";
+import "./styles.css";
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [messages, setMessages] = useState([]);
@@ -29,7 +31,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     if (!selectedChat) return;
 
     try {
-
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -38,10 +39,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
       setLoading(true);
 
-      const { data } = await axios.get(`/api/message/${selectedChat._id}`, config);
+      const { data } = await axios.get(
+        `/api/message/${selectedChat._id}`,
+        config
+      );
       setMessages(data);
       setLoading(false);
-
     } catch (error) {
       toast({
         duration: 5000,
@@ -50,14 +53,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         isClosable: true,
         title: "Could not fetch messages",
         description: error.message,
-      })
+      });
     }
-  }
+  };
 
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
       try {
-
         const config = {
           headers: {
             "Content-Type": "application/json",
@@ -67,13 +69,16 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
         setNewMessage("");
 
-        const { data } = await axios.post("/api/message", {
-          content: newMessage,
-          chatId: selectedChat._id, 
-        }, config);
+        const { data } = await axios.post(
+          "/api/message",
+          {
+            content: newMessage,
+            chatId: selectedChat._id,
+          },
+          config
+        );
 
-        setMessages([messages, data]);
-
+        setMessages([...messages, data]);
       } catch (error) {
         toast({
           title: "Error occured",
@@ -82,16 +87,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           isClosable: true,
           description: error.message,
           position: "bottom",
-        })
+        });
       }
-    } 
+    }
   };
 
   const typingHandler = (event) => {
     setNewMessage(event.target.value);
     // typing indicator logic
   };
-
 
   useEffect(() => {
     fetchMessages();
@@ -133,6 +137,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   <UpdateGroupChatModal
                     fetchAgain={fetchAgain}
                     setFetchAgain={setFetchAgain}
+                    fetchMessages={fetchMessages}
                   />
                 }
               </>
@@ -160,7 +165,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 alignSelf="center"
               />
             ) : (
-              <div>{/*Messages*/}</div>
+              <Box
+                display="flex"
+                flexDirection="column"
+                overflowY="scroll"
+                className="hide-scrollbar"
+              >
+                {<ScrollableChat messages={messages} />}
+              </Box>
             )}
 
             <FormControl onKeyDown={sendMessage} isRequired marginTop={3}>
