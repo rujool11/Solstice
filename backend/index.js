@@ -1,4 +1,5 @@
 import express from "express";
+import { Server as SocketIOServer } from "socket.io";
 import { chats } from "./data/data.js";
 import { connectDB } from "./config/db.js";
 import  dotenv  from "dotenv"; 
@@ -26,6 +27,17 @@ app.use(notFound);
 app.use(errorHandler);
 
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });
+
+const io = new SocketIOServer(server, {
+    pingTimeout: 60000, // close connection after 60s if inactive to save bandwidth
+    cors: {
+        origin: "http://localhost:5173", // same as frontend
+    },
+})
+
+io.on("connection", (socket) => {
+    console.log("connected to socket.io");
+})

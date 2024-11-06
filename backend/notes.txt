@@ -11,3 +11,7 @@ x.findOne(y) -> searched mongoDB database for x type data having field y
 
 
 x.route(y).post(p) and x.route(y).get(g) <=> x.route(y).post(p).get(g)
+
+
+backend -> install socket.io (server version)
+frontend -> install socket.io-client (client version)

@@ -16,7 +16,11 @@ import { useEffect } from "react";
 import { Input } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import ScrollableChat from "./ScrollableChat";
+import io from "socket.io-client";
 import "./styles.css";
+
+const ENDPOINT = "http://localhost:5000";
+let socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [messages, setMessages] = useState([]);
@@ -91,6 +95,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       }
     }
   };
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+  }, []);
 
   const typingHandler = (event) => {
     setNewMessage(event.target.value);
