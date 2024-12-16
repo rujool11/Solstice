@@ -40,4 +40,10 @@ const io = new SocketIOServer(server, {
 
 io.on("connection", (socket) => {
     console.log("connected to socket.io");
+
+    socket.on('setup', (userData) => {
+        socket.join(userData._id); // create room with user
+        console.log(userData._id);
+        socket.emit("connected");
+    })
 })

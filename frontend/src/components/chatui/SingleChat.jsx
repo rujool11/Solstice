@@ -26,6 +26,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
+  const [socketConnected, setSocketConected] = useState(false);
 
   const toast = useToast();
 
@@ -98,6 +99,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     socket = io(ENDPOINT);
+    socket.emit("setup", user); // pass user to server-side socket server
+    socket.on("connection", () => setSocketConected(true));
   }, []);
 
   const typingHandler = (event) => {

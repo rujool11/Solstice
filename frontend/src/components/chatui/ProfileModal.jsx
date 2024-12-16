@@ -23,7 +23,7 @@ const ProfileModal = ({ user, children }) => {
   // wrap children in modal (refer to chakraUI docs)
   return (
     <>
-      {children ? <IconButton variant="ghost" onClick={onOpen}>{children}</IconButton> : <View />}
+      {children ? <Box variant="ghost" onClick={onOpen}>{children}</Box> : <View />}
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
