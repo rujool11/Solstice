@@ -12,6 +12,8 @@ import {
   Image,
   Text,
   Box,
+  IconButton,
+  Icon,
 } from "@chakra-ui/react";
 import View from "../icons/View";
 
@@ -21,7 +23,7 @@ const ProfileModal = ({ user, children }) => {
   // wrap children in modal (refer to chakraUI docs)
   return (
     <>
-      {children ? <Box as="span" onClick={onOpen}>{children}</Box> : <View />}
+      {children ? <IconButton variant="ghost" onClick={onOpen}>{children}</IconButton> : <View />}
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
