@@ -46,4 +46,10 @@ io.on("connection", (socket) => {
         console.log(userData._id);
         socket.emit("connected");
     })
+
+    socket.on("join_chat", (room) => { // takes roomId from frontend
+        socket.join(room);
+        console.log("User joined room: " + room);
+
+    })
 })

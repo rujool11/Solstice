@@ -50,6 +50,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       );
       setMessages(data);
       setLoading(false);
+
+      socket.emit("join_chat", selectedChat._id); // join new room with selectedChatId
+
     } catch (error) {
       toast({
         duration: 5000,
