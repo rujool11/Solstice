@@ -50,6 +50,20 @@ io.on("connection", (socket) => {
     socket.on("join_chat", (room) => { // takes roomId from frontend
         socket.join(room);
         console.log("User joined room: " + room);
+    })
+
+    socket.on("send_message", (newMessageReceived) => {
+        let chat = newMessageReceived.chat;
+
+        if (!chat.users) { // if no users in chat
+            return console.log("users not defined");
+        }
+
+        chat.users.forEach(user => {
+           if (user._id === newMessageReceived.sender._id) return; // if same user has sent message 
+
+           socket.in(user._id).emit("message_received", newMessageReceived);
+        });
 
     })
 })
