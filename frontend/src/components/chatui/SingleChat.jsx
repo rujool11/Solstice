@@ -27,6 +27,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
   const [socketConnected, setSocketConected] = useState(false);
+  const [typing, setTyping] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
 
   const toast = useToast();
 
@@ -67,6 +69,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
+      socket.emit("stop_typing", selectedChat._id);
       try {
         const config = {
           headers: {
@@ -105,12 +108,36 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", user); // pass user to server-side socket server
-    socket.on("connection", () => setSocketConected(true));
+    socket.on("connected", () => setSocketConected(true));
+    socket.on("typing", () => setIsTyping(true));
+    socket.on("stop_typing", () => setIsTyping(false));
   }, []);
 
   const typingHandler = (event) => {
     setNewMessage(event.target.value);
+
     // typing indicator logic
+    if (!socketConnected) return;
+
+    if (!typing) {
+      setTyping(true); // since this runs when we press any keys
+      socket.emit("typing", selectedChat._id);
+    }
+
+    // debounce function to stop showing indicator after 3 seconds
+    let lastTypingTime = new Date().getTime();
+    let timerLength = 1500; // 1.5 seconds
+
+    setTimeout(() => {
+      let timeNow = new Date().getTime();
+      let timeDiff = timeNow - lastTypingTime;
+
+      if (timeDiff >= timerLength && typing) {
+        socket.emit("stop_typing", selectedChat._id);
+        setTyping(false);
+      }
+    }, timerLength);
+
   };
 
   useEffect(() => {
@@ -205,6 +232,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             )}
 
             <FormControl onKeyDown={sendMessage} isRequired marginTop={3}>
+              {isTyping ? <div>Typing...</div> : <></>}
               <Input
                 variant="filled"
                 background="#E0E0E0"

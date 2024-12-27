@@ -47,6 +47,15 @@ io.on("connection", (socket) => {
         socket.emit("connected");
     })
 
+
+    socket.on("typing", (room) => {
+        socket.in(room).emit("typing");
+    })
+
+    socket.on("stop_typing", (room) => {
+        socket.in(room).emit("stop_typing");
+    })
+
     socket.on("join_chat", (room) => { // takes roomId from frontend
         socket.join(room);
         console.log("User joined room: " + room);
@@ -66,4 +75,11 @@ io.on("connection", (socket) => {
         });
 
     })
-})
+
+    socket.off("setup", () => {
+        console.log("User Disconnected");
+        socket.leave(userData._id);
+
+        // leave socket after done
+    });
+});
