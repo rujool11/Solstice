@@ -27,7 +27,7 @@ app.use(notFound);
 app.use(errorHandler);
 
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server started on port ${PORT}`);
 });
 
