@@ -1,0 +1,4 @@
+MONGO_URI=<mongo_uri>
+PORT=<port_number>
+JWT_SECRET=<jwt_secret>
+CLOUDINARY_URL=<cloudinary_url>
